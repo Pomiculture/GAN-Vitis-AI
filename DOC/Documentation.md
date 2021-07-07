@@ -1,21 +1,21 @@
 # Guide
 This ressource explains the role of each file involved in the process.
 The project consists in running different [bash scripts](https://ryanstutorials.net/bash-scripting-tutorial/bash-script.php "Bash") in a specific order.
-The bahs files are located in the */workflow/* subfolder, while the Python source code is situated in the */src/* subfolder.
+The bash files are located in the */workflow/* subfolder, while the Python source code is situated in the */src/* subfolder.
 Open a terminal and make sure to be placed in the workspace directory **docker_ws**.
 ```
 cd docker_ws
 ```
 ### Table of contents
-- [Load the Vitis AI Docker environment](#docker)
-- [Initialize the project](#init)
-- [Build, train and run the AI model](#train)
-- [Convert the Keras model to TensorFlow and freeze the graph](#freeze)
-- [Quantize the model](#quantize)
-- [Compile the model](#compile)
-- [Prepare and run the application](#app)
-- [Evaluate the results](#eval)
-- [Export the results](#drive)
+- [1) Load the Vitis AI Docker environment](#docker)
+- [2) Initialize the project](#init)
+- [3) Build, train and run the AI model](#train)
+- [4) Convert the Keras model to TensorFlow and freeze the graph](#freeze)
+- [5) Quantize the model](#quantize)
+- [6) Compile the model](#compile)
+- [7) Prepare and run the application](#app)
+- [8) Evaluate the results](#eval)
+- [9) Export the results](#drive)
 ---
 <div id='docker'/>
 
@@ -81,15 +81,21 @@ In case you would like to visualize the whole architecture of the TensorFlow gra
 ```
 source ./workflow/7_run_tensorboard.sh
 ```
+![TensorBoard](../IMAGES/tensorboard.png)
+
 ---
 <div id='quantize'/>
 
 ## 5) Quantize the model
-We launch the [Vitis™ AI Quantizer for TensorFlow](https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/tensorflow_1x.html#zuc1592307653938 "Vitis AI Quantizer") to convert the floating-point frozen graph */RUNTIME/build/freeze/frozen_graph.pb* (32-bit floating-point weights and activation values) to a fixed-point integer (8-bit integer - INT8) model by [quantizing](https://www.dictionary.com/browse/quantized "quantize") the weights/biases and activations to the given bit width. The output is the quantized model, which is saved to the path */RUNTIME/build/quantize/quantize_eval_model.pb*. After calibration, the quantized model is transformed into a DPU deployable model ready to be compiled.
+We launch the [Vitis™ AI Quantizer for TensorFlow](https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/tensorflow_1x.html#zuc1592307653938 "Vitis AI Quantizer") to convert the floating-point frozen graph */RUNTIME/build/freeze/frozen_graph.pb* (32-bit floating-point weights and activation values) to a fixed-point integer (8-bit integer - INT8) model by [quantizing](https://www.dictionary.com/browse/quantized "quantize") the weights/biases and activations to the given bit width. This way, we reduce the computing complexity without losing much quality. This transformed model requires less memory bandwidth, thus providing faster speed and higher power efficiency than the floating-point model. This is practical knowing that the FPGA is limited in terms of memory and bandwidth.
 
-We have to indicate the name of the input and output nodes from the frozen graph, and the input shape. We also specify a number of iterations used for the calibration part.
+![Quantize](../IMAGES/Quantize.png)
+
+The output is the quantized model, which is saved to the path */RUNTIME/build/quantize/quantize_eval_model.pb*. After calibration, the quantized model is transformed into a DPU deployable model ready to be compiled. We have to indicate the name of the input and output nodes from the frozen graph, and the input shape. We also specify a number of iterations used for the calibration part.
 
 This process includes a calibration phase in which we use a callback function defined in the Python script *input_fn.py* from the folder */src/calibrate*. The callback function is named *calib_input* is run at each iteration of the calibration process. It creates a noise matrix, the same way as during the training process or when running the model, and we feed the input tensor with this batch of input data. We change the seed according to the iteration index to get new values at each iteration. 
+
+As we are dealing with noise input, instead of image files, the quantize process is very quick.
 ```
 source ./workflow/8_quantize_model.sh
 ```
@@ -106,6 +112,8 @@ You can either check the logs  directly in the terminal or in the log file */RUN
 
 ## 6) Compile the model
 The [Vitis™ AI Compiler for TensorFlow](https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/compiling_model.html "Compiling the Model") is called by the following script to compile the model */RUNTIME/build/quantize/quantize_eval_model.pb* by mapping the network to an optimized DPU instruction sequence, according to the DPU of the target platform (DPUCAHX8H in our case). You can find the DPU configuration file in the path */opt/vitis_ai/compiler/arch/DPUCAHX8H/U280/arch.json*. The XCompiler (XIR based Compiler) constructs an internal computation graph as intermediate representation (IR) and performs several optimization steps.
+
+![Compile](../IMAGES/Compile.png)
 
 We provide a name for the compiled model, *gan_generator.xmodel*, and we place it into the output folder */RUNTIME/build/compile_U280/*.
 ```
@@ -152,12 +160,25 @@ source ./workflow/15_export_results.sh
 ```
 
 ---
+TODO :
+Input tensor(s) :
+- Tensor n°1 : name=reshape_input, shape=[-1, 75, 1, 1]
+Output tensor(s) :
+- Tensor n°1 : name=reshape_1/Reshape
+
+TODO : picture quantize + picture compile 
+- TODO : docker.png
+- TODO : train image.png
++ schéma du process Vitis AI workflow
++ TODO : screen TensorBoard
 TODO : Export results - blabla libraries + how to GDrive proper client secret et changer dans src + src file
 TODO : expliquer les 3 modes d'évaluation et readme à part pour expliquer et présenter images + eval log + call the script 14
 TODO : APP explanations
 expliquer code app + run_app
 /usr/bin/python3
 Python API (link + voir explications du code + expliquer les main steps)
+The Vitis AI Runtime (VART) is the next generation runtime suitable for devices based on DPUCZDX8G, DPUCADX8G, DPUCADF8H, and DPUCAHX8H. DPUCZDX8G and DPUCADF8H are used for Edge devices, such as ZCU102 and ZCU104. DPUCADX8G is used for cloud devices, such as Alveo U200 and U250. DPUCAHX8H is used for cloud devices, such as Alveo U50, U50LV, and U280. DPUCVDX8G is used for Versal evaluation boards, such as VCK190. The framework of VART is shown in the following figure. For the Vitis AI release, VART is based on the XRT.
+https://beetlebox.org/vitis-ai-using-tensorflow-and-keras-tutorial-part-9/
 https://www.xilinx.com/html_docs/vitis_ai/1_3/compiling_model.html#ztl1570696058091
 --model 	${TARGET}/${MODEL_DIR}/${NET_NAME}.xmodel \
 		--threads 	${NB_THREADS} \
@@ -166,25 +187,23 @@ https://www.xilinx.com/html_docs/vitis_ai/1_3/compiling_model.html#ztl1570696058
 		--num_images 	${NB_IMAGES} \
 		--seed 		${SEED} \
 		--codings_size 	${CODINGS_SIZE} 
-TODO : expliquer les 3 méthoes d'éval (et cf. Pwpt fiches)
+TODO : expliquer les 3 méthoes d'éval (et cf. Pwpt fiches) + https://machinelearningmastery.com/how-to-evaluate-generative-adversarial-networks/ + sources pour chacun
 TODO : https://www.xilinx.com/html_docs/vitis_ai/1_3/eku1570695929094.html
-TODO : picture quantize + picture compile
-TODO : remove in ash file the "blabla set of images"
+TODO : remove in bash file the "blabla set of images" quantize?
 + check pwpt fiches de code + caser figure schéma custom
 	uet où regarder et quoi changer si nouveau (setenv, dataset)
 	low bandwidth
++ TODO : app expliquer code (pre/post processing + interact with dpu run threads) et mentionner librairies Vitis dont XIR et dpu
 | Luc| Lucos|  
 |:---: | :---:  |
 | 1  |  2   |
 | 3  |  4   |  
 | 5  |  6   |
-+ TODO : screen TensorBoard
 + TODO : show output images and fps (and score) at each running step *3
 + parler de file_management
 + parler de dpu_runner
-+ schéma du process Vitis AI workflow
++ + recheck si data folders tous bons
 + Faire folder tree pour output folder RUNTIME après complete process
-+ + TREE pour workflow and src Whole project without runtime output dir
++ TREE pour workflow and src Whole project without runtime output dir
 steps : https://www.xilinx.com/products/design-tools/vitis/vitis-ai.html
 For Drive export : create your own app (cf. link) on Google Drive (own client_secret file) to connect to your private Gogole dRive space
-
