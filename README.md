@@ -113,7 +113,7 @@ For this test, we trained the model on 40 epochs. At each run, we generate 50 im
 
 For each case, we measured the duration of the inference phase, excluding the preprocessing and postprocessing steps.
 
-| Original (CPU) | Quantized graph | App (on Alveo U280) |
+| Original (CPU) | Quantized graph | App (Alveo U280) |
 |   :---:        |     :---:       |      :---:          | 
 |   82 ms        |    116 ms       |      0.5 ms         |
 
