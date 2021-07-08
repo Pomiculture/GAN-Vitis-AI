@@ -64,8 +64,6 @@ Before running the project, check the [requirements from Vitis AI](https://www.x
 **Hardware** :
 - [Alveo U280 Data Center Accelerator Card](https://www.xilinx.com/products/boards-and-kits/alveo/u280.html "Alveo U280")
 
-![Alveo U280](IMAGES/alveo.jpg)
-
 ---
 <div id='guide'/>
 
@@ -140,7 +138,12 @@ This score is low due to the fact that the output images are not similar two by 
 
 ## 7) Axes of improvement
 - Profile the execution using [vaitrace](https://www.xilinx.com/html_docs/vitis_ai/1_3/profiling.html "Vitis AI Profiler");
-- 
+- Try to run the application with more than one thread. You can get some advice [here](https://beetlebox.org/vitis-ai-using-tensorflow-and-keras-tutorial-part-9/ "Threads"), and adapt the code the measure the right execution time on DPU taking into account the several threads;
+- Despite specifying the input shape during the compilation process, the input tensor in the application code changes of shape. Try to correct this issue;
+- Although we set at each run the seed for randomness and use the same function to generate the Gaussian distribution hat serves as input, the generated images are not of the same type so we can't apply the SSIM metric. Try to correct this issue;
+- Find other ways to evaluate the [GAN](https://machinelearningmastery.com/how-to-evaluate-generative-adversarial-networks/ "How to Evaluate Generative Adversarial Networks");
+- Change the size of the noise matrix that the generator takes as input;
+- Play with the number of epochs.
 
 ---
 <div id='references'/>
@@ -152,18 +155,15 @@ The mentionned projects below were used for this project as tools or source of i
 - [Xilinx - Vitis AI Tutorials](https://github.com/Xilinx/Vitis-Tutorials/tree/master/Machine_Learning "Vitis AI tutorials")
 
 
+![Alveo U280](IMAGES/alveo.jpg)
+
 ---
-TODO : axes amelio :shape in app + more threads + change time calcul si plus de 1 thread + not same seed for comparison despite set seed+ other wyas to evaluate (cf. link), https://www.xilinx.com/html_docs/vitis_ai/1_3/profiling.html#kdu1570699882179 et lien ticket git
-- GAN axes amelio,shape app (to specify for now !? mult donne bon) + same seed to compare soft/hard ssim + try threads multiple en donnant tip 
+- dire quoi changer pour faire fonctionner (modif setenv et machienlearning)
+
 + TODO : show icture des 3 cas !
-+ https://medium.com/syncedreview/deep-learning-in-real-time-inference-acceleration-and-continuous-training-17dac9438b0b
 + folder images and picture (alveo u280, docker workspace, output image, input images)
 + unetbootin or vm (+ pcie port + avx support)
 + the host machine must have a PCIe port (donner def)
 https://ubuntu.com/
 + screen folder tree 
----
-+ Some ideas of improvement to be made : forme du tenseur d’input bizarre malgré spécification à compilation et pas pb quand tuto
-dire que insdspiré de tuto mnist qui explique workflow classifier
-+ play with nb of threads avec tip à donner + change noise size + nb_epochs play with it
  + good 28x28 and grasycale means lightweight
