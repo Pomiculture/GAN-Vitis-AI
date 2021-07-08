@@ -2,7 +2,6 @@
 
 ###############################################################################################################
 
-# Create a set of image files to be used in the calibration phase of quantization.
 # Launch the Vitis AI quantizer for TensorFlow to convert the floating-point frozen graph 
 # (32-bit floating-point weights and activation values) to a fixed-point integer (8-bit integer - INT8) model.
 # It reduces the computing complexity without losing much accuracy. 
