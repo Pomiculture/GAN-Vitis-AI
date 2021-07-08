@@ -17,7 +17,7 @@ The training step follows the concept of the [Zero-sum game](https://www.investo
 It is quite easy to find some examples online. For instance, we took the [Keras](https://keras.io/ "Keras") model from the [Hands-on Machine Learning GAN tutorial by Aurélien Géron](https://github.com/ageron/handson-ml2/blob/master/17_autoencoders_and_gans.ipynb "GAN with Keras"). In this example, the model is trained with the [Fashion MNIST dataset](https://www.kaggle.com/zalando-research/fashionmnist "Fashion MNIST"), which contains a training set of 60,000 samples and a test set of 10,000 samples of articles of clothing. These are 28x28 grayscale images associated with a label from 10 classes (T-shirt/top, Trouser, Pullover, Dress, Coat, Sandal, Shirt, Sneaker, Bag, Ankle boot).
 With such a rich dataset and such small data, we can quickly obtain convincing results in a matter of a few training iterations.
 
-![Fashion MNIST data](../IMAGES/fashion_mnist.png)
+![Fashion MNIST data](../IMAGES/fashion_mnist.PNG)
 
 ## Adjustments to fit the target platform
 At the time of publication of this project, the [Vitis AI tutorials](https://github.com/Xilinx/Vitis-Tutorials/tree/master/Machine_Learning "Vitis AI tutorials"), [Vitis AI examples](https://github.com/Xilinx/Vitis-AI/blob/master/demo/Vitis-AI-Library/README.md "Vitis AI examples") and [Model Zoo list of pre-compiled models](https://github.com/Xilinx/Vitis-AI/tree/master/models/AI-Model-Zoo "Model Zoo") don't propose any GAN model but rather deal with object detectors and classifiers.
