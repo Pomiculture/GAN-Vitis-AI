@@ -8,7 +8,9 @@ This project aims to implement a GAN (Generative Adversarial Networks) on a hard
 4) [Requirements](#requirements)
 5) [User Guide](#guide)
 6) [Results](#results)
-7) [References](#references)
+7) [Axes of improvement](#improvement)
+8) [References](#references)
+
 ---
 <div id='context'/>
 
@@ -134,9 +136,16 @@ Again, the output images of the generator running on the host machine are closer
 This score is low due to the fact that the output images are not similar two by two, despite setting the seed value that determines randomness, and using the same function to generate the input noise. 
 
 ---
+<div id='improvement'/>
+
+## 7) Axes of improvement
+- Profile the execution using [vaitrace](https://www.xilinx.com/html_docs/vitis_ai/1_3/profiling.html "Vitis AI Profiler");
+- 
+
+---
 <div id='references'/>
 
-## 7) References
+## 8) References
 The mentionned projects below were used for this project as tools or source of inspiration :
 - [Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow by Aurélien Géron](https://github.com/ageron/handson-ml2 "/ageron/handson-ml2")
 - [TF Keras YOLOv4/v3/v2 Modelset by David8862](https://github.com/david8862/keras-YOLOv3-model-set "david8862/keras-YOLOv3-model-set")
@@ -144,8 +153,8 @@ The mentionned projects below were used for this project as tools or source of i
 
 
 ---
-TODO : axes amelio : vaitrace + shape in app + more threads + change time calcul si plus de 1 thread + not same seed for comparison despite set seed+ other wyas to evaluate (cf. link), https://www.xilinx.com/html_docs/vitis_ai/1_3/profiling.html#kdu1570699882179 et lien ticket git
-- GAN axes amelio, make vaitrace work + shape app (to specify for now !? mult donne bon) + same seed to compare soft/hard ssim + try threads multiple en donnant tip 
+TODO : axes amelio :shape in app + more threads + change time calcul si plus de 1 thread + not same seed for comparison despite set seed+ other wyas to evaluate (cf. link), https://www.xilinx.com/html_docs/vitis_ai/1_3/profiling.html#kdu1570699882179 et lien ticket git
+- GAN axes amelio,shape app (to specify for now !? mult donne bon) + same seed to compare soft/hard ssim + try threads multiple en donnant tip 
 + TODO : show icture des 3 cas !
 + https://medium.com/syncedreview/deep-learning-in-real-time-inference-acceleration-and-continuous-training-17dac9438b0b
 + folder images and picture (alveo u280, docker workspace, output image, input images)
@@ -153,9 +162,6 @@ TODO : axes amelio : vaitrace + shape in app + more threads + change time calcul
 + the host machine must have a PCIe port (donner def)
 https://ubuntu.com/
 + screen folder tree 
-+ + axe amelio profiling vaitrace
-+ Overlays, or hardware libraries, are programmable/configurable FPGA designs that extend the user application from the Processing System of the Zynq into the Programmable Logic. Overlays can be used to accelerate a software application, or to customize the hardware platform for a particular application.
-An FPGA overlay is a virtual reconfigurable architecture that overlays on top of the physical FPGA configurable fabric. From this definition, we can see that an FPGA overlay is a machine architecture that is able to carry out certain computation.
 ---
 + Some ideas of improvement to be made : forme du tenseur d’input bizarre malgré spécification à compilation et pas pb quand tuto
 dire que insdspiré de tuto mnist qui explique workflow classifier
