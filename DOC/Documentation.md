@@ -131,9 +131,7 @@ You can either check the logs  directly in the terminal or in the log file */RUN
 <div id='app'/>
 
 ## 7) Prepare and run the application
-The application code ...
-
-...
+The application code is in Python and described by the files *src/application/app.py* and *src/application/dpu_runner.py*. We use the [Vitis AI Runtime (VART) library](https://www.xilinx.com/html_docs/vitis_ai/1_3/tpa1605601589077.html "VART Python API"). We also call the [XIR library](https://www.xilinx.com/html_docs/vitis_ai/1_3/compiling_model.html#ariaid-title3 "XIR library"). You can find some explanations [here](https://beetlebox.org/vitis-ai-using-tensorflow-and-keras-tutorial-part-9/ "Vitis AI using Tensorflow and Keras Tutorial").
 
 To facilitate the runtime process, we gather the application code from */src/application/* and compiled model */RUNTIME/build/compile_U280/gan_generator.xmodel* to a same folder */RUNTIME/build/target_U280/*.
 ```
@@ -144,7 +142,7 @@ We only download the archive if it is not already downloaded to the workspace.
 ```
 source ./workflow/12_load_u280_overlay.sh
 ```
-To run the application, run the following script.
+To run the application, call the following script. We use the */usr/bin/python3* instead of the *python* from *Anaconda*. We indicate the name of the model, the number of threads, the name of the output folder, *./RUNTIME/data/output*, the format and number of images, the value of the seed, and the size of the noise input.	
 ```
 source ./workflow/13_run_app.sh
 ```
@@ -172,24 +170,3 @@ To change the client secret file, follow [these steps](https://www.youtube.com/w
 ```
 source ./workflow/15_export_results.sh
 ```
-
----
-TODO : expliquer les 3 modes d'évaluation et readme à part pour expliquer et présenter images + eval log + call the script 14
-expliquer code app + run_app
-/usr/bin/python3
-Python API (link + voir explications du code + expliquer les main steps)
-The Vitis AI Runtime (VART) is the next generation runtime suitable for devices based on DPUCZDX8G, DPUCADX8G, DPUCADF8H, and DPUCAHX8H. DPUCZDX8G and DPUCADF8H are used for Edge devices, such as ZCU102 and ZCU104. DPUCADX8G is used for cloud devices, such as Alveo U200 and U250. DPUCAHX8H is used for cloud devices, such as Alveo U50, U50LV, and U280. DPUCVDX8G is used for Versal evaluation boards, such as VCK190. The framework of VART is shown in the following figure. For the Vitis AI release, VART is based on the XRT.
-https://beetlebox.org/vitis-ai-using-tensorflow-and-keras-tutorial-part-9/
-https://www.xilinx.com/html_docs/vitis_ai/1_3/compiling_model.html#ztl1570696058091
---model 	${TARGET}/${MODEL_DIR}/${NET_NAME}.xmodel \
-		--threads 	${NB_THREADS} \
-		--output_folder ${OUTPUT_DIR} \
-		--format 	${IMG_FORMAT} \
-		--num_images 	${NB_IMAGES} \
-		--seed 		${SEED} \
-		--codings_size 	${CODINGS_SIZE} 
-+ TODO : app expliquer code (pre/post processing + interact with dpu run threads) et mentionner librairies Vitis dont XIR et dpu
-+ parler de file_management
-+ parler de dpu_runner
-+ + recheck si data folders tous bons
-+ Faire folder tree pour output folder RUNTIME après complete process
