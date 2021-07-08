@@ -62,6 +62,8 @@ Before running the project, check the [requirements from Vitis AI](https://www.x
 **Hardware** :
 - [Alveo U280 Data Center Accelerator Card](https://www.xilinx.com/products/boards-and-kits/alveo/u280.html "Alveo U280")
 
+![Alveo U280](IMAGES/alveo.jpg)
+
 ---
 <div id='guide'/>
 
