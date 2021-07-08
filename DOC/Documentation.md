@@ -74,6 +74,12 @@ source ./workflow/5_keras_to_frozen_tf.sh
 You can either check the logs  directly in the terminal or in the log file */RUNTIME/build/logs/freeze.log*.
 
 In order to make it easier for the user, given that we need to identify the name of the input and output tensors of the frozen graph to proceed our transformations, we can run the script below that calls the Python program *get_io_tensors.py* located in the folder */src/ai_model*. We just have to specify the path to the frozen graph, that is to say */RUNTIME/build/freeze/frozen_graph.pb*. This script, inspired by the [NEWBEDEV website](https://newbedev.com/given-a-tensor-flow-model-graph-how-to-find-the-input-node-and-output-node-names "Given a tensor flow model graph, how to find the input node and output node names"), displays the name of the input and output tensors, and the shape of the input tensor.
+
+Input tensor :
+- Tensor n°1 : reshape_input, shape=[-1, 75, 1, 1]
+Output tensor :
+- Tensor n°1 : reshape_1/Reshape
+
 ```
 source ./workflow/6_get_io_tensors.sh
 ```
@@ -148,7 +154,14 @@ You can either check the logs  directly in the terminal or in the log file */RUN
 <div id='eval'/>
 
 ## 8) Evaluate the results
-...
+To evaluate the results, we computed :
+- the FID (Fréchet Inception Distance) score to evaluate the closeness of the images produced by the generator to the training set;
+- the SSIM (Structural SIMilarity) score to observe the similarity of the images produced by the original model and the one running on the Alveo U280;
+- and we ran the discriminator over the ouput images.
+
+```
+source ./workflow/14_eval.sh
+```
 
 ---
 <div id='drive'/>
@@ -160,20 +173,8 @@ source ./workflow/15_export_results.sh
 ```
 
 ---
-TODO :
-Input tensor(s) :
-- Tensor n°1 : name=reshape_input, shape=[-1, 75, 1, 1]
-Output tensor(s) :
-- Tensor n°1 : name=reshape_1/Reshape
-
-TODO : picture quantize + picture compile 
-- TODO : docker.png
-- TODO : train image.png
-+ schéma du process Vitis AI workflow
-+ TODO : screen TensorBoard
 TODO : Export results - blabla libraries + how to GDrive proper client secret et changer dans src + src file
 TODO : expliquer les 3 modes d'évaluation et readme à part pour expliquer et présenter images + eval log + call the script 14
-TODO : APP explanations
 expliquer code app + run_app
 /usr/bin/python3
 Python API (link + voir explications du code + expliquer les main steps)
@@ -187,23 +188,10 @@ https://www.xilinx.com/html_docs/vitis_ai/1_3/compiling_model.html#ztl1570696058
 		--num_images 	${NB_IMAGES} \
 		--seed 		${SEED} \
 		--codings_size 	${CODINGS_SIZE} 
-TODO : expliquer les 3 méthoes d'éval (et cf. Pwpt fiches) + https://machinelearningmastery.com/how-to-evaluate-generative-adversarial-networks/ + sources pour chacun
-TODO : https://www.xilinx.com/html_docs/vitis_ai/1_3/eku1570695929094.html
-TODO : remove in bash file the "blabla set of images" quantize?
-+ check pwpt fiches de code + caser figure schéma custom
-	uet où regarder et quoi changer si nouveau (setenv, dataset)
-	low bandwidth
+TODO : expliquer les 3 méthoes d'éval (et cf. Pwpt fiches) +  + sources pour chacun
 + TODO : app expliquer code (pre/post processing + interact with dpu run threads) et mentionner librairies Vitis dont XIR et dpu
-| Luc| Lucos|  
-|:---: | :---:  |
-| 1  |  2   |
-| 3  |  4   |  
-| 5  |  6   |
-+ TODO : show output images and fps (and score) at each running step *3
 + parler de file_management
 + parler de dpu_runner
 + + recheck si data folders tous bons
 + Faire folder tree pour output folder RUNTIME après complete process
-+ TREE pour workflow and src Whole project without runtime output dir
-steps : https://www.xilinx.com/products/design-tools/vitis/vitis-ai.html
 For Drive export : create your own app (cf. link) on Google Drive (own client_secret file) to connect to your private Gogole dRive space
