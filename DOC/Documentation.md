@@ -133,7 +133,7 @@ To facilitate the runtime process, we gather the application code from */src/app
 ```
 source ./workflow/11_make_target.sh
 ```
-We can now load the overlay that suits the DPU of type DPUCAHX8H so as to configure the accelerator card. We have to download an archive, *alveo_xclbin*, untar it, and copy the files for the target platform, *U280/14E300M/dpu.xclbin* and *U280/14E300M/hbm_address_assignment.txt*, to the */usr/lib* folder.
+We can now load the overlay that suits the DPU of type DPUCAHX8H so as to configure the hardware design of the accelerator card. We have to download an archive, *alveo_xclbin*, untar it, and copy the files for the target platform, *U280/14E300M/dpu.xclbin* and *U280/14E300M/hbm_address_assignment.txt*, to the */usr/lib* folder.
 We only download the archive if it is not already downloaded to the workspace.
 ```
 source ./workflow/12_load_u280_overlay.sh
