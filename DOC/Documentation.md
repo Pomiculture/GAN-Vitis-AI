@@ -168,12 +168,12 @@ source ./workflow/14_eval.sh
 
 ## 9) Export the results
 This optional step consists in exporting the output images to a Google Drive folder.
+To change the client secret file, follow [these steps](https://www.youtube.com/watch?v=HzICUriU3k0 "Client secret").
 ```
 source ./workflow/15_export_results.sh
 ```
 
 ---
-TODO : Export results - blabla libraries + how to GDrive proper client secret et changer dans src + src file
 TODO : expliquer les 3 modes d'évaluation et readme à part pour expliquer et présenter images + eval log + call the script 14
 expliquer code app + run_app
 /usr/bin/python3
@@ -188,10 +188,8 @@ https://www.xilinx.com/html_docs/vitis_ai/1_3/compiling_model.html#ztl1570696058
 		--num_images 	${NB_IMAGES} \
 		--seed 		${SEED} \
 		--codings_size 	${CODINGS_SIZE} 
-TODO : expliquer les 3 méthoes d'éval (et cf. Pwpt fiches) +  + sources pour chacun
 + TODO : app expliquer code (pre/post processing + interact with dpu run threads) et mentionner librairies Vitis dont XIR et dpu
 + parler de file_management
 + parler de dpu_runner
 + + recheck si data folders tous bons
 + Faire folder tree pour output folder RUNTIME après complete process
-For Drive export : create your own app (cf. link) on Google Drive (own client_secret file) to connect to your private Gogole dRive space
