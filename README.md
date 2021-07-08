@@ -157,11 +157,3 @@ The mentionned projects below were used for this project as tools or source of i
 - [Xilinx - Vitis AI Tutorials](https://github.com/Xilinx/Vitis-Tutorials/tree/master/Machine_Learning "Vitis AI tutorials")
 
 ![Alveo U280](IMAGES/alveo.jpg)
-
----
-+ TODO : show icture des 3 cas !
-+ folder images and picture (alveo u280, docker workspace, output image, input images)
-+ unetbootin or vm (+ pcie port + avx support)
-+ the host machine must have a PCIe port (donner def)
-https://ubuntu.com/
-+ screen folder tree 
