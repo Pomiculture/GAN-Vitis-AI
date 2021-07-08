@@ -102,6 +102,15 @@ For more details, please consult this **[guide](DOC/Documentation.md "Documentat
 In this section, we compare the performances of the original GAN generator running on the CPU of the host machine to its modified version running on the Alveo U280 accelerator card. In case you get an issue when running the script to evaluate the performances, this may be due to the previous installation of TensorFlow to run the App. In this case, open a new instance of Docker and run the evaluation only.
 
 For this test, we trained the model on 40 epochs. At each run, we generate 50 images with the trained generator model. We use a seed of 42.
+
+- Image from the training set : ![Training image](IMAGES/img_training.png)
+
+- Image produced by running the original model : ![CPU image](IMAGES/img_cpu.png)
+
+- Image produced by running the quantized graph : ![Quantized graph image](IMAGES/img_quantize.png)
+
+- Image produced by running app on the Alveo U280 FPGA : ![FPGA image](IMAGES/img_fpga.png)
+
 For each case, we measured the duration of the inference phase, excluding the preprocessing and postprocessing steps.
 
 | Original | Quantized graph | App (on Alveo U280) |
