@@ -105,7 +105,7 @@ For this test, we trained the model on 40 epochs. At each run, we generate 50 im
 
 - Image from the training set : ![Training image](IMAGES/img_training.png)
 
-- Image produced by running the original model : ![CPU image](IMAGES/img_cpu.png)
+- Image produced by running the original model on the CPU : ![CPU image](IMAGES/img_cpu.png)
 
 - Image produced by running the quantized graph : ![Quantized graph image](IMAGES/img_quantize.png)
 
@@ -113,9 +113,9 @@ For this test, we trained the model on 40 epochs. At each run, we generate 50 im
 
 For each case, we measured the duration of the inference phase, excluding the preprocessing and postprocessing steps.
 
-| Original | Quantized graph | App (on Alveo U280) |
-|   :---:  |     :---:       |      :---:          | 
-|   82 ms  |    116 ms       |      0.5 ms         |
+| Original (CPU) | Quantized graph | App (on Alveo U280) |
+|   :---:        |     :---:       |      :---:          | 
+|   82 ms        |    116 ms       |      0.5 ms         |
 
 We can deduce from this test that the App running on the Alveo U280 is 164 faster than the software run on the CPU of the host machine.
 
