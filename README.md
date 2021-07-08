@@ -91,7 +91,7 @@ Then, run the following script to execute the whole process.
 ```
  source ./run_all.sh
 ```
-This project is based on the workflow from Vitis AI tutorials using the [Anaconda](https://www.anaconda.com/ "Anaconda") environment for [TensorFlow](https://www.tensorflow.org/?hl=en "TensorFlow"), such as the [MNIST Classification using Vitis AI and TensorFlow 1.15](https://github.com/Xilinx/Vitis-Tutorials/tree/master/Machine_Learning/Design_Tutorials/02-MNIST_classification_tf "MNIST Classification using Vitis AI and TensorFlow 1.15").
+This project is based on the workflow from Vitis AI tutorials using the [Anaconda](https://www.anaconda.com/ "Anaconda") environment for [TensorFlow](https://www.tensorflow.org/?hl=en "TensorFlow"), such as the [MNIST Classification using Vitis AI and TensorFlow 1.15](https://github.com/Xilinx/Vitis-Tutorials/tree/master/Machine_Learning/Design_Tutorials/02-MNIST_classification_tf "MNIST Classification using Vitis AI and TensorFlow 1.15"). 
 
 For more details, please consult this **[guide](DOC/Documentation.md "Documentation")**.
 
@@ -145,6 +145,8 @@ This score is low due to the fact that the output images are not similar two by 
 - Change the size of the noise matrix that the generator takes as input;
 - Play with the number of epochs.
 
+In order to implement your own GAN model (that still generates images from noise input), modify the script *3_train_model.sh* responsible for building and training the model, and make changes in the *1_set_env.sh* script to set the new shapes and tensor names.
+
 ---
 <div id='references'/>
 
@@ -154,16 +156,12 @@ The mentionned projects below were used for this project as tools or source of i
 - [TF Keras YOLOv4/v3/v2 Modelset by David8862](https://github.com/david8862/keras-YOLOv3-model-set "david8862/keras-YOLOv3-model-set")
 - [Xilinx - Vitis AI Tutorials](https://github.com/Xilinx/Vitis-Tutorials/tree/master/Machine_Learning "Vitis AI tutorials")
 
-
 ![Alveo U280](IMAGES/alveo.jpg)
 
 ---
-- dire quoi changer pour faire fonctionner (modif setenv et machienlearning)
-
 + TODO : show icture des 3 cas !
 + folder images and picture (alveo u280, docker workspace, output image, input images)
 + unetbootin or vm (+ pcie port + avx support)
 + the host machine must have a PCIe port (donner def)
 https://ubuntu.com/
 + screen folder tree 
- + good 28x28 and grasycale means lightweight
