@@ -77,6 +77,7 @@ In order to make it easier for the user, given that we need to identify the name
 
 Input tensor :
 - Tensor n°1 : reshape_input, shape=[-1, 75, 1, 1]
+
 Output tensor :
 - Tensor n°1 : reshape_1/Reshape
 
