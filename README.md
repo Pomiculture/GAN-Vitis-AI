@@ -124,7 +124,7 @@ We then used different techniques to try to evaluate the performances of the gen
 
 | Model                         | Original (CPU)   | App (Alveo U280) |
 | :---:                         |   :---:          |  :---:           | 
-| Average score                 |    96 %          |  33%             |
+| Average score                 |    96 %          |  33 %             |
 | Percentage of images over 0.5 |    96 %          |  16 %            |
 
 - [FID (Frechet Inception Distance)](https://machinelearningmastery.com/how-to-implement-the-frechet-inception-distance-fid-from-scratch/ "How to Implement the Frechet Inception Distance (FID) for Evaluating GANs") score : Evaluate the quality of the generator's output by measuring the distance between feature vectors calculated for real and generated images. The compared feature vectors (activations) come from the [Inception V3 classificator](https://keras.io/api/applications/inceptionv3/ "Inception V3"), pre-trained on the [ImageNet dataset](https://www.image-net.org/ "ImageNet"). The goal is to evaluate synthetic images based on the statistics of a collection of synthetic images compared to the statistics of a collection of real images from the training set. An FID score of 0.0 means that both batches of images are identical. 
