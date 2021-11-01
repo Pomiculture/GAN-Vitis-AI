@@ -117,15 +117,15 @@ For each case, we measured the duration of the inference phase, excluding the pr
 |   :---:        |     :---:             |      :---:       | 
 |   82 ms        |    116 ms             |      0.5 ms      |
 
-We can deduce from this test that the App running on the Alveo U280 is 164 faster than the software run on the CPU of the host machine.
+We can deduce from this test that the App running on the Alveo U280 is 164 times faster than the software run on the CPU of the host machine.
 
 We then used different techniques to try to evaluate the performances of the generator running on the Alveo accelerator card :
 - Classification : We run the original discriminator model (binary classifier) on the host machine over the output images to evaluate their degree of realism. Let's measure the average score that gets the generator on the host machine and the accelerator card, and the percentage of images that got a confidence over 50 %. We notice below the loss of quality of the GAN generator, that loses 63% of images detected as real images. The reason could be that the postprocessing step differs between both programs.
 
 | Model                         | Original (CPU)   | App (Alveo U280) |
 | :---:                         |   :---:          |  :---:           | 
-| Average score                 |    0.96 %        |  33%             |
-| Percentage of images over 0.5 |    0.96 %        |  16 %            |
+| Average score                 |    96 %          |  33%             |
+| Percentage of images over 0.5 |    96 %          |  16 %            |
 
 - [FID (Frechet Inception Distance)](https://machinelearningmastery.com/how-to-implement-the-frechet-inception-distance-fid-from-scratch/ "How to Implement the Frechet Inception Distance (FID) for Evaluating GANs") score : Evaluate the quality of the generator's output by measuring the distance between feature vectors calculated for real and generated images. The compared feature vectors (activations) come from the [Inception V3 classificator](https://keras.io/api/applications/inceptionv3/ "Inception V3"), pre-trained on the [ImageNet dataset](https://www.image-net.org/ "ImageNet"). The goal is to evaluate synthetic images based on the statistics of a collection of synthetic images compared to the statistics of a collection of real images from the training set. An FID score of 0.0 means that both batches of images are identical. 
 
